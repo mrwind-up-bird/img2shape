@@ -2,7 +2,7 @@ import numpy as np
 import random
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D 
-import tkinter as tk  
+import tkinter as tk
 
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))
@@ -47,6 +47,14 @@ class NeuralNetwork:
     def train(self, x, target):
         self.forward(x)
         self.backward(x, target)
+        save_model(self)
+        
+def save_model(nn, filename="model.npz"):
+    np.savez(filename,
+             weights_input_hidden=nn.weights_input_hidden,
+             bias_hidden=nn.bias_hidden,
+             weights_hidden_output=nn.weights_hidden_output,
+             bias_output=nn.bias_output)
 
 def visualize_forward_pass_3d(nn, x, target=None, epoch_info=""):
 
